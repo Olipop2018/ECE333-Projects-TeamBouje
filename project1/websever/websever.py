@@ -32,8 +32,8 @@ while True:
         f.close() #close file to free resources
         #Send one HTTP header line into socket
         #Fill in start
-        connectionSocket.send('HTTP/1.1 200 OK\r\n') # hhtp ok messae
-        connectionSocket.send("Content-Type: text/html\r\n\r\n")# content type
+        #connectionSocket.send("HTTP/1.1 200 OK\r\n".encode) # hhtp ok message
+        #connectionSocket.send("Content-Type: text/html\r\n\r\n".encode)# content type
         #Fill in end
         #Send the content of the requested file to the client
         for i in range(0, len(outputdata)):
