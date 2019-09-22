@@ -8,7 +8,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 HOST, PORT = '', 8888
 
 # prevents waiting for accepting multiple requests
-serverSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 # bind the sockect and port number
 serverSocket.bind((HOST, PORT))
 #server starts listening for request, 
