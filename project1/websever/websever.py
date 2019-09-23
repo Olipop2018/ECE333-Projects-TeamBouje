@@ -5,7 +5,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 ERR= b"""\HTTP/1.1 404 NOT FOUND\r\n"""
 OK= b"""\HTTP/1.1 200 OK\r\n"""
 content= b"""\Content-Type: text/html\r\n\r\n"""
-file= b"404.html"
+file= b"404S.html"
 #Prepare a sever socket
 #Fill in start
 # this will be local host IP: 127.0.0.1
