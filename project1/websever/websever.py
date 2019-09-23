@@ -2,6 +2,10 @@
 from socket import *
 import sys # In order to terminate the program
 serverSocket = socket(AF_INET, SOCK_STREAM)
+ERR= b"""\HTTP/1.1 404 NOT FOUND\r\n"""
+OK= b"""\HTTP/1.1 200 OK\r\n"""
+content= b"""\Content-Type: text/html\r\n\r\n"""
+file= b"404.html"
 #Prepare a sever socket
 #Fill in start
 # this will be local host IP: 127.0.0.1
@@ -21,10 +25,10 @@ while True:
     print('Ready to serve')
     connectionSocket, addr = serverSocket.accept() #Fill in start #Fill in end
     #Establish the connection
+
     try:
         # writes the clients request in to message (the file it wants to access)
         message = connectionSocket.recv(1024)
-  
         filename = message.split()[1]
         f = open(filename[1:])
         # reads the file
@@ -32,8 +36,8 @@ while True:
         f.close() #close file to free resources
         #Send one HTTP header line into socket
         #Fill in start
-        #connectionSocket.send("HTTP/1.1 200 OK\r\n".encode) # hhtp ok message
-        #connectionSocket.send("Content-Type: text/html\r\n\r\n".encode)# content type
+        connectionSocket.sendall(OK) # hhtp ok message
+        connectionSocket.sendall(content)# content type
         #Fill in end
         #Send the content of the requested file to the client
         for i in range(0, len(outputdata)):
@@ -43,7 +47,14 @@ while True:
     except IOError:
         #Send response message for file not found
         #Fill in start
-        
+        h = open(file)
+        eputdata = h.read()
+       # h.close()
+        connectionSocket.sendall(ERR)
+        connectionSocket.sendall(content)
+        connectionSocket.sendall(eputdata.encode())
+        connectionSocket.send("\r\n".encode())
+        #
         #Fill in end
         #Close client socket
         #Fill in start
