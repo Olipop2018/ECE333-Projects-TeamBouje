@@ -29,7 +29,7 @@ while True:
 
     try:
         # writes the clients request in to message (the file it wants to access)
-        message = connectionSocket.recv(4096)
+        message = connectionSocket.recv(1024)
         if (message == b''):
             continue
         filename = message.split()[1]
