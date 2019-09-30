@@ -34,7 +34,8 @@ while True:
             continue
         filename = message.split()[1]
        # if(message.count(b".js")):
-        f = open(filename[1:],'r', 4096, encoding="utf8")
+       #f = open(filename[1:],'rb', 4096, encoding="utf8")
+        f = open(filename[1:],'rb')
       #  else:
            # f = open(filename[1:])
         # reads the file
