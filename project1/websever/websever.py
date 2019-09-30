@@ -29,11 +29,14 @@ while True:
 
     try:
         # writes the clients request in to message (the file it wants to access)
-        message = connectionSocket.recv(1024)
+        message = connectionSocket.recv(4096)
         if (message == b''):
             continue
         filename = message.split()[1]
-        f = open(filename[1:])
+       # if(message.count(b".js")):
+        f = open(filename[1:],'r', 4096, encoding="utf8")
+      #  else:
+           # f = open(filename[1:])
         # reads the file
         outputdata = f.read() #Fill in start #Fill in end
         f.close() #close file to free resources
@@ -44,7 +47,7 @@ while True:
         #Fill in end
         #Send the content of the requested file to the client
         for i in range(0, len(outputdata)):
-              connectionSocket.send(outputdata[i].encode())
+              connectionSocket.send(outputdata[i])
         connectionSocket.send("\r\n".encode())
         connectionSocket.close()
     except IOError:
