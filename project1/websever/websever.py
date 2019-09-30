@@ -9,8 +9,9 @@ file= b"404S.html"
 #Prepare a sever socket
 #Fill in start
 # this will be local host IP: 127.0.0.1
-HOST, PORT = '', 8888
-
+HOST, PORT = gethostname(), 8888
+#info =getaddrinfo(HOST,PORT)
+HOST= gethostbyname(HOST)
 # prevents waiting for accepting multiple requests
 serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 # bind the sockect and port number
@@ -29,6 +30,8 @@ while True:
     try:
         # writes the clients request in to message (the file it wants to access)
         message = connectionSocket.recv(1024)
+        if (message == b''):
+            continue
         filename = message.split()[1]
         f = open(filename[1:])
         # reads the file
@@ -49,7 +52,7 @@ while True:
         #Fill in start
         h = open(file)
         eputdata = h.read()
-       # h.close()
+        h.close()
         connectionSocket.sendall(ERR)
         connectionSocket.sendall(content)
         connectionSocket.sendall(eputdata.encode())
