@@ -12,14 +12,15 @@ bufferSize = 1024
 ClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 ClientSocket.settimeout(1)
 # Send to server using created UDP socket
-for i in range(0,10):
+for i in range(1,11):
     beginTime= time.time()
     seq= i
+    print("PING {} {}".format(i, beginTime))
     ClientSocket.sendto(WhatToSend, serverAddressPort)
     try:
         ServerMsg = ClientSocket.recvfrom(bufferSize)
     except socket.timeout:
-        print("Timeout!!! Try again...")
+        print("OOOOOOOOOOOOOOOOOHHHHHHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!! Request Timed out, Try again...")
         continue
     endTime= time.time()
     if(ServerMsg[0] !=''):
