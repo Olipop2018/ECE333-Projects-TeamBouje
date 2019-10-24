@@ -18,4 +18,4 @@ while True:
     if rand < 4:
         continue
 # Otherwise, the server responds
-serverSocket.sendto(message, address)
+    serverSocket.sendto(message, address)
