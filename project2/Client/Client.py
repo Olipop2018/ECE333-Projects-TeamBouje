@@ -24,7 +24,7 @@ count = 0
 for i in range(1,11):
     beginTime = time.time()
     seq = i
-    print("PING {} {}".format(i, beginTime))
+    print("PING {}, time {}".format(i, beginTime))
     ClientSocket.sendto(WhatToSend, serverAddressPort)
     try:
         ServerMsg = ClientSocket.recvfrom(bufferSize)
@@ -36,7 +36,7 @@ for i in range(1,11):
         rcvmsg= ServerMsg[0].decode("utf-8")
         RTT= endTime- beginTime
         compareRTT = RTT
-        msg = "   > Message from Server {} and RTT = {} seconds".format(rcvmsg, RTT)
+        msg = "   > Message from Server {}, and RTT = {} seconds".format(rcvmsg, RTT)
         print(msg)
         # Getting min/max RTTs + total RTTs for avg
         if (compareRTT > maxRTT):
