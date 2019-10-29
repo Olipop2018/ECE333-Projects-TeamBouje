@@ -21,22 +21,22 @@ avgRTT = 0
 count = 0
 
 # Send to server using created UDP socket
-for i in range(1,11):
+for i in range(1, 11):
     beginTime = time.time()
     seq = i
-    print("PING {}, time {}".format(i, beginTime))
+    print("PING {}, start time {}".format(i, beginTime))
     ClientSocket.sendto(WhatToSend, serverAddressPort)
     try:
         ServerMsg = ClientSocket.recvfrom(bufferSize)
     except socket.timeout:
-        print("   > OOOOOOOOOOOOOOOOOHHHHHHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!! Request Timed out, Try again...")
+        print("\t> OOOOOOOOOOOOOOOOOHHHHHHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!! Request Timed out, Try again...")
         continue
-    endTime= time.time()
-    if(ServerMsg[0] !=''):
+    endTime = time.time()
+    if(ServerMsg[0] != ''):
         rcvmsg= ServerMsg[0].decode("utf-8")
         RTT= endTime- beginTime
         compareRTT = RTT
-        msg = "   > Message from Server {}, and RTT = {} seconds".format(rcvmsg, RTT)
+        msg = "\t> Message from Server: {}, and RTT = {} seconds".format(rcvmsg, RTT)
         print(msg)
         # Getting min/max RTTs + total RTTs for avg
         if (compareRTT > maxRTT):
@@ -46,6 +46,6 @@ for i in range(1,11):
         totalRTT += RTT
         count += 1
 avgRTT = totalRTT / count   # get avg RTT
-msg2 = "\n >>> REPORT: Min RTT = {} seconds, Max RTT = {} seconds, Avg RTT = {} seconds".format(minRTT, maxRTT, avgRTT)
+msg2 = "\n >>> REPORT: Min RTT = {} seconds,\n\t\t\t Max RTT = {} seconds,\n\t\t\t Avg RTT = {} seconds".format(minRTT, maxRTT, avgRTT)
 print(msg2)
 
