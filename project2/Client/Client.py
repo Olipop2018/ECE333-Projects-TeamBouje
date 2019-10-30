@@ -12,13 +12,14 @@ bufferSize = 1024
 ClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 ClientSocket.settimeout(1)
 
-# inits for min, max, and avg RTTs
+# inits for min, max, avg RTTs, and packet loss
 maxRTT = 0
 minRTT = 1
 compareRTT = 0
 totalRTT = 0
 avgRTT = 0
 count = 0
+pktLossCt = 0
 
 # Send to server using created UDP socket
 for i in range(1, 11):
@@ -30,6 +31,7 @@ for i in range(1, 11):
         ServerMsg = ClientSocket.recvfrom(bufferSize)
     except socket.timeout:
         print("\t> OOOOOOOOOOOOOOOOOHHHHHHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!! Request Timed out, Try again...")
+        pktLossCt += 1  # number of lost packets
         continue
     endTime = time.time()
     if(ServerMsg[0] != ''):
@@ -46,6 +48,7 @@ for i in range(1, 11):
         totalRTT += RTT
         count += 1
 avgRTT = totalRTT / count   # get avg RTT
-report = "\n >>> REPORT: Min RTT = {} seconds,\n\t\t\t Max RTT = {} seconds,\n\t\t\t Avg RTT = {} seconds".format(minRTT, maxRTT, avgRTT)
+pktLoss = int((pktLossCt / 10) * 10)    # get packet loss
+report = "\n >>> REPORT: Min RTT = {} seconds,\n\t\t\t Max RTT = {} seconds,\n\t\t\t Avg RTT = {} seconds, \n\t\t\t Pkt Loss Rate = {}%".format(minRTT, maxRTT, avgRTT, pktLoss)  # give report
 print(report)
 
