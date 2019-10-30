@@ -35,8 +35,8 @@ for i in range(1, 11):
         continue
     endTime = time.time()
     if(ServerMsg[0] != ''):
-        rcvmsg= ServerMsg[0].decode("utf-8")
-        RTT= endTime- beginTime
+        rcvmsg = ServerMsg[0].decode("utf-8")
+        RTT = endTime - beginTime
         compareRTT = RTT
         msg = "\t> Message from Server: {}, and RTT = {} seconds".format(rcvmsg, RTT)
         print(msg)
