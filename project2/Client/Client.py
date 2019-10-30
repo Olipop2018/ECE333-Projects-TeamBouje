@@ -46,6 +46,6 @@ for i in range(1, 11):
         totalRTT += RTT
         count += 1
 avgRTT = totalRTT / count   # get avg RTT
-msg2 = "\n >>> REPORT: Min RTT = {} seconds,\n\t\t\t Max RTT = {} seconds,\n\t\t\t Avg RTT = {} seconds".format(minRTT, maxRTT, avgRTT)
-print(msg2)
+report = "\n >>> REPORT: Min RTT = {} seconds,\n\t\t\t Max RTT = {} seconds,\n\t\t\t Avg RTT = {} seconds".format(minRTT, maxRTT, avgRTT)
+print(report)
 
