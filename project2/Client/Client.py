@@ -42,7 +42,7 @@ for seq in range(1, 11):
         rcvmsg = ServerMsg[0].decode("utf-8")
         RTT = endTime - beginTime
         compareRTT = RTT
-        msg = "\t> Message from Server: {}, and RTT = {} seconds".format(rcvmsg, RTT)
+        msg = "\t> Message from Server: \"{}\", and RTT = {} seconds".format(rcvmsg, RTT)
         print(msg)
         # Getting min/max RTTs + total RTTs for avg
         if (compareRTT > maxRTT):
