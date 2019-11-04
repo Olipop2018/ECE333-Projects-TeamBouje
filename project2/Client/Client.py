@@ -2,7 +2,7 @@ import socket
 import time
 #import socket.timeout as TimeoutException
 
-ClientMsg = "FUCK YOU UDP Server"
+ClientMsg = "Yay!  Packet sent/received successfully!"
 WhatToSend = str.encode(ClientMsg)
 serverAddressPort = ("127.0.0.1", 12000)
 bufferSize = 1024
@@ -24,7 +24,7 @@ pktLossCt = 0
 # Send to server using created UDP socket
 for seq in range(1, 11):
     beginTime = time.time()
-    print("PING {}, start time {}".format(seq, beginTime))
+    print("PING {}, start time {} seconds".format(seq, beginTime))
     ClientSocket.sendto(WhatToSend, serverAddressPort)
     # Heartbeat BEGIN
     currTime = str(beginTime)
@@ -34,7 +34,7 @@ for seq in range(1, 11):
     try:
         ServerMsg = ClientSocket.recvfrom(bufferSize)
     except socket.timeout:
-        print("\t> OOOOOOOOOOOOOOOOOHHHHHHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!! Request Timed out, Try again...")
+        print("\t> OOOOOOOOOOOOOOOOOHHHHHHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!  Request Timed out, Try again...")
         pktLossCt += 1  # number of lost packets
         continue
     endTime = time.time()
