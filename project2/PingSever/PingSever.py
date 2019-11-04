@@ -2,6 +2,7 @@
 # We will need the following module to generate randomized lost packets
 import random
 from socket import *
+import time   # used for heartbeat
 # Create a UDP socket
 # Notice the use of SOCK_DGRAM for UDP packets
 serverSocket = socket(AF_INET, SOCK_DGRAM)
@@ -12,10 +13,17 @@ while True:
     rand = random.randint(0, 10)
 # Receive the client packet along with the address it is coming from
     message, address = serverSocket.recvfrom(1024)
+    # HEARTBEAT begin
+    seq_num, addr = serverSocket.recvfrom(1024)
+    currTime, addre = serverSocket.recvfrom(1024)
+    endTime = time.time()
+    calcTime = endTime - float(currTime.decode())
+    # HEARTBEAT end
 # Capitalize the message from the client
     message = message.upper()
 # If rand is less is than 4, we consider the packet lost and do not respond
     if rand < 4:
+        print('Heartbeat says: Packet {} LOST, Time elapsed between packets: {} seconds'.format(seq_num.decode(), calcTime))    # heartbeat report
         continue
 # Otherwise, the server responds
     serverSocket.sendto(message, address)

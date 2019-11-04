@@ -22,11 +22,15 @@ count = 0
 pktLossCt = 0
 
 # Send to server using created UDP socket
-for i in range(1, 11):
+for seq in range(1, 11):
     beginTime = time.time()
-    seq = i
-    print("PING {}, start time {}".format(i, beginTime))
+    print("PING {}, start time {}".format(seq, beginTime))
     ClientSocket.sendto(WhatToSend, serverAddressPort)
+    # Heartbeat BEGIN
+    currTime = str(beginTime)
+    ClientSocket.sendto(str(seq).encode(), serverAddressPort)  # send seq num to server
+    ClientSocket.sendto(currTime.encode(), serverAddressPort)  # send current timestamp in UDP packet to server
+    # Heartbeat END
     try:
         ServerMsg = ClientSocket.recvfrom(bufferSize)
     except socket.timeout:
@@ -48,7 +52,7 @@ for i in range(1, 11):
         totalRTT += RTT
         count += 1
 avgRTT = totalRTT / count   # get avg RTT
-pktLoss = int((pktLossCt / 10) * 10)    # get packet loss
+pktLoss = int((pktLossCt / 10) * 100)    # get packet loss
 report = "\n >>> REPORT: Min RTT = {} seconds,\n\t\t\t Max RTT = {} seconds,\n\t\t\t Avg RTT = {} seconds, \n\t\t\t Pkt Loss Rate = {}%".format(minRTT, maxRTT, avgRTT, pktLoss)  # give report
 print(report)
 
